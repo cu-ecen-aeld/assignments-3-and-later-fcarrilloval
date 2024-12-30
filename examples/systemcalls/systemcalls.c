@@ -9,15 +9,20 @@
 */
 bool do_system(const char *cmd)
 {
-
-/*
- * TODO  add your code here
+printf("do_system()++\n");
+printf("cmd %s\n", cmd);
+/*  TODO
  *  Call the system() function with the command set in the cmd
  *   and return a boolean true if the system() call completed with success
  *   or false() if it returned a failure
 */
-
-    return true;
+    if (system(cmd) == 0){
+        return true;
+    }
+    else{ 
+        return false;
+    }
+	printf("do_system()--\n");
 }
 
 /**
@@ -36,6 +41,7 @@ bool do_system(const char *cmd)
 
 bool do_exec(int count, ...)
 {
+    printf("do_exec()++\n");
     va_list args;
     va_start(args, count);
     char * command[count+1];
@@ -58,9 +64,38 @@ bool do_exec(int count, ...)
  *   as second argument to the execv() command.
  *
 */
+    pid_t pid = fork();
+    if (pid == -1){
+        printf("fork failed\n");
+		return false;
+    } else if (pid == 0){
+        //Child process
+        if(execv(command[0], command) == -1){
+            printf("execv failed\n");
+            exit(1);
+        }
+    } else {
+        //Parent process
+		int status;
+        waitpid(pid, &status, 0); //wait for child process to complete
+        printf("Child process finished\n");
+	    //Check the child's exit status
+		if (WIFEXITED(status)) {
+			int exit_status = WEXITSTATUS(status);
+			if (exit_status == 0) {
+				printf("Command succeeded.\n");
+			} else {
+				printf("Command failed with exit code %d.\n", exit_status);
+				return false; // Return false to indicate failure
+			}
+		} else {
+			printf("Child did not exit normally.\n");
+			return false; // Return false to indicate failure
+		}
+    }
 
     va_end(args);
-
+    printf("do_exec()--\n");
     return true;
 }
 
@@ -71,6 +106,7 @@ bool do_exec(int count, ...)
 */
 bool do_exec_redirect(const char *outputfile, int count, ...)
 {
+	printf("do_exec_redirect()++\n");
     va_list args;
     va_start(args, count);
     char * command[count+1];
@@ -93,7 +129,38 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
  *
 */
 
-    va_end(args);
+    int kidpid;
+    int fd = open(outputfile, O_WRONLY|O_TRUNC|O_CREAT, 0644);
+    if (fd < 0) { printf("open error"); return false; }
+    switch (kidpid = fork()) {
+      case -1: printf("fork error"); return false;
+      case 0:
+	//Redirection happens here
+        if (dup2(fd, 1) < 0) { printf("dup2 error"); return false; }
+        close(fd);
+        execvp(command[0], command); printf("execv error"); exit(1);
+      default:
+    /* do whatever the parent wants to do. */
+	        //Parent process
+		int status;
+        waitpid(kidpid, &status, 0); //wait for child process to complete
+        printf("Child process finished\n");
+	    //Check the child's exit status
+		if (WIFEXITED(status)) {
+			int exit_status = WEXITSTATUS(status);
+			if (exit_status == 0) {
+				printf("Command succeeded.\n");
+			} else {
+				printf("Command failed with exit code %d.\n", exit_status);
+				return false; // Return false to indicate failure
+			}
+		} else {
+			printf("Child did not exit normally.\n");
+			return false; // Return false to indicate failure
+		}
+}
 
+    va_end(args);
+	printf("do_exec_redirect()--\n");
     return true;
 }

@@ -1,0 +1,33 @@
+-- Generating ;/home/fer/github/assignment-1-fcarrilloval/assignment-autotest/test/assignment1/Test_hello_Runner.c;/home/fer/github/assignment-1-fcarrilloval/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c;/home/fer/github/assignment-1-fcarrilloval/assignment-autotest/test/assignment3/Test_systemcalls_Runner.c from test/assignment1/Test_hello.c;test/assignment1/Test_assignment_validate.c;test/assignment3/Test_systemcalls.c
+-- Building executable including ;/home/fer/github/assignment-1-fcarrilloval/assignment-autotest/test/assignment1/Test_hello_Runner.c;/home/fer/github/assignment-1-fcarrilloval/assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c;/home/fer/github/assignment-1-fcarrilloval/assignment-autotest/test/assignment3/Test_systemcalls_Runner.c test/assignment1/Test_hello.c;test/assignment1/Test_assignment_validate.c;test/assignment3/Test_systemcalls.c and ../examples/autotest-validate/autotest-validate.c;../examples/systemcalls/systemcalls.c
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/fer/github/assignment-1-fcarrilloval/build
+[  7%] Building C object assignment-autotest/Unity/src/CMakeFiles/unity.dir/unity.c.o
+[ 15%] Linking C static library libunity.a
+[ 15%] Built target unity
+[ 23%] Generating ../../assignment-autotest/test/assignment1/Test_hello_Runner.c, ../../assignment-autotest/test/assignment1/Test_assignment_validate_Runner.c, ../../assignment-autotest/test/assignment3/Test_systemcalls_Runner.c, ../../assignment-autotest/test/unity_runner.c
+Test files for auto dependency generation test/assignment1/Test_hello.c test/assignment1/Test_assignment_validate.c test/assignment3/Test_systemcalls.c
+Autogenerating runner for test/assignment1/Test_hello.c
+Autogenerating runner for test/assignment1/Test_assignment_validate.c
+Autogenerating runner for test/assignment3/Test_systemcalls.c
+Autogenerating test/unity_runner.c
+[ 30%] Building C object assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_hello.c.o
+[ 38%] Building C object assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_assignment_validate.c.o
+[ 46%] Building C object assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment3/Test_systemcalls.c.o
+[ 53%] Building C object assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_hello_Runner.c.o
+[ 61%] Building C object assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment1/Test_assignment_validate_Runner.c.o
+[ 69%] Building C object assignment-autotest/CMakeFiles/assignment-autotest.dir/test/assignment3/Test_systemcalls_Runner.c.o
+[ 76%] Building C object assignment-autotest/CMakeFiles/assignment-autotest.dir/__/examples/autotest-validate/autotest-validate.c.o
+[ 84%] Building C object assignment-autotest/CMakeFiles/assignment-autotest.dir/__/examples/systemcalls/systemcalls.c.o
+/home/fer/github/assignment-1-fcarrilloval/examples/systemcalls/systemcalls.c: In function ‘do_exec’:
+/home/fer/github/assignment-1-fcarrilloval/examples/systemcalls/systemcalls.c:49:48: error: expected ‘;’ before ‘}’ token
+   49 |         printf("command[%d] %s",i, command[i] )
+      |                                                ^
+      |                                                ;
+   50 |     }
+      |     ~                                           
+make[2]: *** [assignment-autotest/CMakeFiles/assignment-autotest.dir/build.make:189: assignment-autotest/CMakeFiles/assignment-autotest.dir/__/examples/systemcalls/systemcalls.c.o] Error 1
+make[1]: *** [CMakeFiles/Makefile2:130: assignment-autotest/CMakeFiles/assignment-autotest.dir/all] Error 2
+make: *** [Makefile:136: all] Error 2
+./unit-test.sh: line 13: ./build/assignment-autotest/assignment-autotest: No such file or directory
